@@ -15,6 +15,10 @@ function! s:UseTmuxNavigatorMappings()
   return !exists("g:tmux_navigator_no_mappings") || !g:tmux_navigator_no_mappings
 endfunction
 
+function! s:UseNvimTerminalMappings()
+  return has('nvim') && exists(':tnoremap')
+endfunction
+
 function! s:InTmuxSession()
   return $TMUX != ''
 endfunction
@@ -84,4 +88,11 @@ if s:UseTmuxNavigatorMappings()
   nnoremap <silent> <c-k> :TmuxNavigateUp<cr>
   nnoremap <silent> <c-l> :TmuxNavigateRight<cr>
   nnoremap <silent> <c-\> :TmuxNavigatePrevious<cr>
+endif
+
+if s:UseNvimTerminalMappings()
+  tnoremap <c-j> <c-\><c-n><c-w>j
+  tnoremap <c-k> <c-\><c-n><c-w>k
+  tnoremap <c-h> <c-\><c-n><c-w>h
+  tnoremap <c-l> <c-\><c-n><c-w>l
 endif
